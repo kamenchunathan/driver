@@ -6,10 +6,13 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bevy = "0.11.3"
+bevy = { version = "0.11.3", features = ["wav"] }
 bevy_asset_loader = "0.17.0"
 bevy_egui = "0.21.0"
 bevy_xpbd_2d = "0.2.0"
+time = { version = "0.3.29", features = ["formatting"] }
+tracing-appender = "0.2.2"
+tracing-subscriber = { version = "0.3.17", features = ["json", "env-filter"] }
 
 [profile.dev.package."*"]
 opt-level = 3
