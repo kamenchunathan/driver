@@ -51,7 +51,7 @@ fn setup(
     asset_server: ResMut<AssetServer>,
     audio_assets: Res<AudioAssets>,
 ) {
-    info!("Audio assets: {audio_assets:#?}");
+    debug!("Audio assets: {audio_assets:#?}");
 
     // commands.spawn(AudioBundle {
     //     source: track,

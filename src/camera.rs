@@ -1,6 +1,7 @@
 /// Camera controller
 use bevy::{core_pipeline::clear_color::ClearColorConfig, prelude::*};
 
+#[derive(Debug)]
 pub struct CameraPlugin;
 
 impl Plugin for CameraPlugin {

@@ -4,6 +4,7 @@
 mod camera;
 mod music;
 mod player;
+mod states;
 
 use bevy::{app::PluginGroupBuilder, prelude::*};
 
