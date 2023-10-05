@@ -3,15 +3,23 @@ name = "driver"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+debug = [
+  "dep:bevy_egui",
+  "dep:bevy-inspector-egui",
+  "dep:time",
+  "dep:tracing-appender",
+]
 
 [dependencies]
-bevy = { version = "0.11.3", features = ["wav"] }
 bevy_asset_loader = "0.17.0"
-bevy_egui = "0.21.0"
+bevy = { version = "0.11.3", features = ["wav"] }
+bevy-inspector-egui = { version = "0.19.0", optional = true }
+bevy_egui = { version = "0.21.0", optional = true }
 bevy_xpbd_2d = "0.2.0"
-time = { version = "0.3.29", features = ["formatting"] }
-tracing-appender = "0.2.2"
+time = { version = "0.3.29", features = ["formatting"], optional = true }
+tracing-appender = { version = "0.2.2", optional = true }
 tracing-subscriber = { version = "0.3.17", features = ["json", "env-filter"] }
 
 [profile.dev.package."*"]
