@@ -1,3 +1,6 @@
+// For development purposes only
+#![allow(unused)]
+
 mod camera;
 mod music;
 mod player;
