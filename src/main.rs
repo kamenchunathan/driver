@@ -34,7 +34,8 @@ fn init_tracing() {
             .with_filter(EnvFilter::new("info,wgpu_core=warn,wgpu_hal=warn")),
     );
 
-    if cfg!(feature = "debug") {
+    #[cfg(feature = "debug")]
+    {
         let now = time::OffsetDateTime::now_utc();
 
         let (file_appender, _) = tracing_appender::non_blocking(
@@ -50,7 +51,8 @@ fn init_tracing() {
                     )),
             )
             .init();
-    } else {
-        subscriber.init();
     }
+
+    #[cfg(not(feature = "debug"))]
+    subscriber.init()
 }

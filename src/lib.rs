@@ -26,6 +26,5 @@ impl PluginGroup for DriverGamePlugins {
             .add(CameraPlugin)
             .add(PlayerPlugin)
             .add(MusicPlugin)
-
     }
 }
