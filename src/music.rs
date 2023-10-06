@@ -13,8 +13,14 @@ impl Plugin for MusicPlugin {
                     .on_failure_continue_to_state(AudioAssetsLoadingState::Failed),
             )
             .add_collection_to_loading_state::<_, AudioAssets>(AudioAssetsLoadingState::Loading)
+            .insert_resource(AudioSettings { music_volume: 0.5 })
             .add_systems(OnEnter(AudioAssetsLoadingState::Complete), setup);
     }
+}
+
+#[derive(Debug, Resource, Reflect)]
+struct AudioSettings {
+    music_volume: f32,
 }
 
 #[derive(Debug, Resource, AssetCollection)]
@@ -50,15 +56,21 @@ fn setup(
     mut commands: Commands,
     asset_server: ResMut<AssetServer>,
     audio_assets: Res<AudioAssets>,
+    audio_settings: Res<AudioSettings>,
 ) {
     debug!("Audio assets: {audio_assets:#?}");
+    let source = audio_assets
+        .music
+        .get("Music/2 - The Cave.ogg")
+        .unwrap()
+        .clone();
 
-    // commands.spawn(AudioBundle {
-    //     source: track,
-    //     settings: PlaybackSettings {
-    //         mode: bevy::audio::PlaybackMode::Loop,
-    //         volume: bevy::audio::Volume::Relative(VolumeLevel::new(10.0)),
-    //         ..default()
-    //     },
-    // });
+    commands.spawn(AudioBundle {
+        source,
+        settings: PlaybackSettings {
+            mode: bevy::audio::PlaybackMode::Loop,
+            volume: bevy::audio::Volume::Relative(VolumeLevel::new(audio_settings.music_volume)),
+            ..default()
+        },
+    });
 }

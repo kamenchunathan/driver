@@ -13,7 +13,7 @@ impl PluginGroup for DebugPlugins {
     fn build(self) -> bevy::app::PluginGroupBuilder {
         PluginGroupBuilder::start::<Self>()
             .add(EguiPlugin)
-            // .add(WorldInspectorPlugin::new())
+            .add(WorldInspectorPlugin::new())
             .add(CommandPalettePlugin)
     }
 }

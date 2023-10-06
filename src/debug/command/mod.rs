@@ -13,10 +13,7 @@ pub struct CommandPalettePlugin;
 impl Plugin for CommandPalettePlugin {
     fn build(&self, app: &mut App) {
         app.add_event::<CommandEvent>()
-            .insert_resource(CommandPalette {
-                open: true,
-                ..default()
-            })
+            .insert_resource(CommandPalette::default())
             .add_systems(
                 Update,
                 (command_palette, handle_commands.after(command_palette)),
