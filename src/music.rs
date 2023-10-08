@@ -1,4 +1,8 @@
-use bevy::{audio::VolumeLevel, prelude::*, utils::HashMap};
+use bevy::{
+    audio::{PlaybackSettings, Volume, VolumeLevel, PlaybackMode},
+    prelude::*,
+    utils::HashMap,
+};
 use bevy_asset_loader::prelude::*;
 
 #[derive(Debug)]
@@ -65,12 +69,25 @@ fn setup(
         .unwrap()
         .clone();
 
-    commands.spawn(AudioBundle {
-        source,
-        settings: PlaybackSettings {
-            mode: bevy::audio::PlaybackMode::Loop,
-            volume: bevy::audio::Volume::Relative(VolumeLevel::new(audio_settings.music_volume)),
-            ..default()
+    commands.spawn((
+        AudioBundle {
+            source,
+            settings: PlaybackSettings {
+                mode: PlaybackMode::Loop,
+                volume: Volume::Relative(VolumeLevel::new(audio_settings.music_volume)),
+                ..default()
+            },
         },
-    });
+        Name::new("Music player"),
+    ));
+}
+
+fn volume_changed(
+    mut audio_settings: Res<AudioSettings>,
+    mut music_settings_query: Query<&mut PlaybackSettings>,
+) {
+    if audio_settings.is_changed() {
+        let mut music_settings = music_settings_query.get_single_mut().unwrap();
+        music_settings.volume = Volume::Relative(VolumeLevel::new(audio_settings.music_volume));
+    }
 }
