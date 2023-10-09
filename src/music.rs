@@ -17,7 +17,7 @@ impl Plugin for MusicPlugin {
                     .on_failure_continue_to_state(AudioAssetsLoadingState::Failed),
             )
             .add_collection_to_loading_state::<_, AudioAssets>(AudioAssetsLoadingState::Loading)
-            .insert_resource(AudioSettings { music_volume: 0.5 })
+            .insert_resource(AudioSettings { music_volume: 0.1 })
             .add_systems(OnEnter(AudioAssetsLoadingState::Complete), setup);
     }
 }
